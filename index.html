@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Yosua & Aviel Cleaning Shoe</title>
+
+    <meta name="description"
+        content="Premium Shoe Cleaning Service - Deep Cleaning, Regular Service, Fast Service">
+
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Background Effects -->
+    <div class="gradient-bg"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+
+        <div class="logo-section">
+
+            <!-- Ganti dengan logo.png milikmu -->
+            <img src="logo.png" alt="Logo" class="logo">
+
+            <div class="brand-text">
+                <h2>YOSUA & AVIEL</h2>
+                <p>Cleaning Shoe</p>
+            </div>
+
+        </div>
+
+        <a href="https://wa.me/6283188294496"
+            target="_blank"
+            class="nav-whatsapp">
+
+            Chat WhatsApp
+
+        </a>
+
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+
+        <div class="hero-card">
+
+            <span class="badge">
+                Premium Shoe Care
+            </span>
+
+            <h1>
+                Your Shoes<br>
+                Deserve Better Care
+            </h1>
+
+            <p>
+                Deep Cleaning • Regular Service • Fast Service
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#order-section">
+                    <button class="btn-primary">
+                        Order Online
+                    </button>
+                </a>
+
+                <a href="https://wa.me/6283188294496"
+                    target="_blank">
+
+                    <button class="btn-secondary">
+                        Chat WhatsApp
+                    </button>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Services -->
+    <section class="services">
+
+        <h2 class="section-title">
+            Our Services
+        </h2>
+
+        <div class="service-grid">
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    🧼
+                </div>
+
+                <h3>
+                    Deep Cleaning
+                </h3>
+
+                <p>
+                    Pembersihan menyeluruh hingga ke sela-sela terdalam sepatu.
+                </p>
+
+                <div class="price">
+                    Rp40.000
+                </div>
+
+            </div>
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    👟
+                </div>
+
+                <h3>
+                    Regular Service
+                </h3>
+
+                <p>
+                    Perawatan standar untuk menjaga kebersihan sepatu harian.
+                </p>
+
+                <div class="price">
+                    Rp30.000
+                </div>
+
+            </div>
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    ⚡
+                </div>
+
+                <h3>
+                    Fast Service
+                </h3>
+
+                <p>
+                    Layanan cepat untuk kebutuhan mendesak.
+                </p>
+
+                <div class="price">
+                    Rp20.000
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Before After -->
+    <section class="gallery">
+
+        <h2 class="section-title">
+            Before & After
+        </h2>
+
+        <div class="gallery-grid">
+
+            <div class="gallery-card">
+                <div class="placeholder">
+                    BEFORE
+                </div>
+            </div>
+
+            <div class="gallery-card">
+                <div class="placeholder">
+                    AFTER
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Order Form -->
+    <section id="order-section" class="order-section">
+
+        <div class="order-card">
+
+            <h2>
+                Order Online
+            </h2>
+
+            <form id="orderForm">
+
+                <div class="input-group">
+
+                    <label>
+                        Nama Lengkap
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nama"
+                        placeholder="Masukkan nama lengkap"
+                        required>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>
+                        Nomor WhatsApp
+                    </label>
+
+                    <input
+                        type="text"
+                        id="hp"
+                        placeholder="08xxxxxxxxxx"
+                        required>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>
+                        Alamat
+                    </label>
+
+                    <textarea
+                        id="alamat"
+                        rows="3"
+                        placeholder="Masukkan alamat lengkap"
+                        required></textarea>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>
+                        Jenis Layanan
+                    </label>
+
+                    <select id="layanan">
+
+                        <option value="40000">
+                            Deep Cleaning - Rp40.000
+                        </option>
+
+                        <option value="30000">
+                            Regular Service - Rp30.000
+                        </option>
+
+                        <option value="20000">
+                            Fast Service - Rp20.000
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>
+                        Jumlah Pasang
+                    </label>
+
+                    <input
+                        type="number"
+                        id="jumlah"
+                        min="1"
+                        value="1">
+
+                </div>
+
+                <div class="price-box">
+
+                    <span>
+                        Total Harga
+                    </span>
+
+                    <h3 id="totalHarga">
+                        Rp40.000
+                    </h3>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="submit-btn">
+
+                    Kirim Order
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+
+        <div class="footer-content">
+
+            <img src="logo.png"
+                class="footer-logo"
+                alt="Logo">
+
+            <h3>
+                YOSUA & AVIEL
+            </h3>
+
+            <p>
+                Cleaning Shoe
+            </p>
+
+            <a href="https://wa.me/6283188294496"
+                target="_blank">
+
+                +62 831-8829-4496
+
+            </a>
+
+            <p class="copyright">
+                © 2026 Yosua & Aviel Cleaning Shoe
+            </p>
+
+        </div>
+
+    </footer>
+
+    <script type="module" src="script.js"></script>
+
+</body>
+
+</html>
