@@ -136,6 +136,8 @@ return `YACS-${tahun}-${random}`;
 
 async function sendTelegramNotification(order){
 
+console.log("TELEGRAM FUNCTION JALAN");
+
 ```
 const message =
 ```
@@ -390,16 +392,25 @@ submitButton.textContent =
 
 try{
 
-    await addDoc(
+await addDoc(
+    collection(
+        db,
+        "orders"
+    ),
+    dataOrder
+);
 
-        collection(
-            db,
-            "orders"
-        ),
+console.log(
+    "SEBELUM TELEGRAM"
+);
 
-        dataOrder
+await sendTelegramNotification(
+    dataOrder
+);
 
-    );
+console.log(
+    "SETELAH TELEGRAM"
+);
 
     await sendTelegramNotification(
         dataOrder
