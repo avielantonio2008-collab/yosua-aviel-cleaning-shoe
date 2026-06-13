@@ -2,15 +2,15 @@ import { firebaseConfig }
 from "./firebase-config.js";
 
 import {
-    initializeApp
+initializeApp
 }
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
-    getFirestore,
-    collection,
-    addDoc
+getFirestore,
+collection,
+addDoc
 }
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -20,6 +20,16 @@ initializeApp(firebaseConfig);
 
 const db =
 getFirestore(app);
+
+// =========================
+// TELEGRAM CONFIG
+// =========================
+
+const TELEGRAM_TOKEN =
+"8418760680:AAFPGHmhQdxD8-LK-UvKrNSah-xo4vaYOYs";
+
+const TELEGRAM_CHAT_ID =
+"1994536537";
 
 // =========================
 // ELEMENTS
@@ -37,24 +47,24 @@ document.getElementById("totalHarga");
 const orderForm =
 document.getElementById("orderForm");
 
-
 // =========================
 // FORMAT RUPIAH
 // =========================
 
 function formatRupiah(angka){
 
-    return new Intl.NumberFormat(
-        "id-ID",
-        {
-            style:"currency",
-            currency:"IDR",
-            minimumFractionDigits:0
-        }
-    ).format(angka);
+```
+return new Intl.NumberFormat(
+    "id-ID",
+    {
+        style:"currency",
+        currency:"IDR",
+        minimumFractionDigits:0
+    }
+).format(angka);
+```
 
 }
-
 
 // =========================
 // HITUNG TOTAL HARGA
@@ -62,45 +72,42 @@ function formatRupiah(angka){
 
 function hitungTotal(){
 
-    const hargaLayanan =
-    parseInt(
-        layananSelect.value
-    );
+```
+const hargaLayanan =
+parseInt(
+    layananSelect.value
+);
 
-    const jumlahPasang =
-    parseInt(
-        jumlahInput.value
-    ) || 1;
+const jumlahPasang =
+parseInt(
+    jumlahInput.value
+) || 1;
 
-    const total =
-    hargaLayanan *
-    jumlahPasang;
+const total =
+hargaLayanan *
+jumlahPasang;
 
-    totalHargaText.textContent =
-    formatRupiah(total);
+totalHargaText.textContent =
+formatRupiah(total);
+```
 
 }
-
 
 // =========================
 // EVENT LISTENER HARGA
 // =========================
 
 layananSelect.addEventListener(
-    "change",
-    hitungTotal
+"change",
+hitungTotal
 );
 
 jumlahInput.addEventListener(
-    "input",
-    hitungTotal
+"input",
+hitungTotal
 );
 
-
-// Jalankan saat halaman dibuka
-
 hitungTotal();
-
 
 // =========================
 // GENERATE ORDER NUMBER
@@ -108,19 +115,107 @@ hitungTotal();
 
 function generateOrderNumber(){
 
-    const tahun =
-    new Date().getFullYear();
+```
+const tahun =
+new Date().getFullYear();
 
-    const random =
-    Math.floor(
-        1000 +
-        Math.random() * 9000
-    );
+const random =
+Math.floor(
+    1000 +
+    Math.random() * 9000
+);
 
-    return `YACS-${tahun}-${random}`;
+return `YACS-${tahun}-${random}`;
+```
 
 }
 
+// =========================
+// TELEGRAM NOTIFICATION
+// =========================
+
+async function sendTelegramNotification(order){
+
+```
+const message =
+```
+
+`🔔 ORDER BARU - YACS
+
+📦 Order:
+${order.orderNumber}
+
+👤 Nama:
+${order.nama}
+
+📱 WhatsApp:
+${order.hp}
+
+📍 Alamat:
+${order.alamat}
+
+🧽 Layanan:
+${order.layanan}
+
+👟 Jumlah:
+${order.jumlah} Pasang
+
+💰 Total:
+${formatRupiah(order.total)}
+
+📌 Status:
+${order.status}
+
+⏰ Waktu:
+${new Date().toLocaleString("id-ID")}
+`;
+
+```
+try{
+
+    const response =
+    await fetch(
+
+    `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`,
+
+    {
+        method:"POST",
+
+        headers:{
+            "Content-Type":
+            "application/json"
+        },
+
+        body:JSON.stringify({
+
+            chat_id:
+            TELEGRAM_CHAT_ID,
+
+            text:
+            message
+
+        })
+
+    });
+
+    console.log(
+        "Telegram:",
+        await response.json()
+    );
+
+}
+
+catch(error){
+
+    console.error(
+        "Telegram Error:",
+        error
+    );
+
+}
+```
+
+}
 
 // =========================
 // POPUP SUKSES
@@ -128,85 +223,86 @@ function generateOrderNumber(){
 
 function tampilkanPopup(orderNumber){
 
-    const popup =
-    document.createElement("div");
+```
+const popup =
+document.createElement("div");
 
-    popup.style.position = "fixed";
-    popup.style.top = "0";
-    popup.style.left = "0";
-    popup.style.width = "100%";
-    popup.style.height = "100%";
-    popup.style.background =
-    "rgba(0,0,0,0.5)";
-    popup.style.display = "flex";
-    popup.style.justifyContent =
-    "center";
-    popup.style.alignItems =
-    "center";
-    popup.style.zIndex = "9999";
+popup.style.position = "fixed";
+popup.style.top = "0";
+popup.style.left = "0";
+popup.style.width = "100%";
+popup.style.height = "100%";
+popup.style.background =
+"rgba(0,0,0,0.5)";
+popup.style.display = "flex";
+popup.style.justifyContent =
+"center";
+popup.style.alignItems =
+"center";
+popup.style.zIndex = "9999";
 
-    popup.innerHTML = `
-    
-    <div style="
-        background: rgba(255,255,255,0.15);
-        backdrop-filter: blur(20px);
-        border-radius: 24px;
-        padding: 40px;
-        color: white;
-        text-align: center;
-        max-width: 400px;
-        border:1px solid rgba(255,255,255,0.2);
+popup.innerHTML = `
+
+<div style="
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 40px;
+    color: white;
+    text-align: center;
+    max-width: 400px;
+    border:1px solid rgba(255,255,255,0.2);
+">
+
+    <h2>✅ Order Berhasil</h2>
+
+    <br>
+
+    <p>
+    Nomor Order:
+    </p>
+
+    <h3>
+    ${orderNumber}
+    </h3>
+
+    <br>
+
+    <p>
+    Kami akan segera menghubungi Anda.
+    </p>
+
+    <br>
+
+    <button id="closePopup"
+    style="
+        padding:12px 24px;
+        border:none;
+        border-radius:12px;
+        background:white;
+        color:#ff5a00;
+        cursor:pointer;
+        font-weight:600;
     ">
+        Tutup
+    </button>
 
-        <h2>✅ Order Berhasil</h2>
+</div>
+`;
 
-        <br>
+document.body.appendChild(
+    popup
+);
 
-        <p>
-        Nomor Order:
-        </p>
-
-        <h3>
-        ${orderNumber}
-        </h3>
-
-        <br>
-
-        <p>
-        Kami akan segera menghubungi Anda.
-        </p>
-
-        <br>
-
-        <button id="closePopup"
-        style="
-            padding:12px 24px;
-            border:none;
-            border-radius:12px;
-            background:white;
-            color:#ff5a00;
-            cursor:pointer;
-            font-weight:600;
-        ">
-            Tutup
-        </button>
-
-    </div>
-    `;
-
-    document.body.appendChild(
-        popup
-    );
-
-    document
-    .getElementById("closePopup")
-    .addEventListener(
-        "click",
-        () => popup.remove()
-    );
+document
+.getElementById("closePopup")
+.addEventListener(
+    "click",
+    () => popup.remove()
+);
+```
 
 }
-
 
 // =========================
 // SUBMIT FORM
@@ -216,87 +312,83 @@ orderForm.addEventListener(
 "submit",
 async function(e){
 
-    e.preventDefault();
+```
+e.preventDefault();
 
-    const nama =
-    document
-    .getElementById("nama")
-    .value.trim();
+const nama =
+document
+.getElementById("nama")
+.value.trim();
 
-    const hp =
-    document
-    .getElementById("hp")
-    .value.trim();
+const hp =
+document
+.getElementById("hp")
+.value.trim();
 
-    const alamat =
-    document
-    .getElementById("alamat")
-    .value.trim();
+const alamat =
+document
+.getElementById("alamat")
+.value.trim();
 
-    const layananText =
-    layananSelect.options[
-        layananSelect.selectedIndex
-    ].text;
+const layananText =
+layananSelect.options[
+    layananSelect.selectedIndex
+].text;
 
-    const harga =
-    parseInt(
-        layananSelect.value
-    );
+const harga =
+parseInt(
+    layananSelect.value
+);
 
-    const jumlah =
-    parseInt(
-        jumlahInput.value
-    );
+const jumlah =
+parseInt(
+    jumlahInput.value
+);
 
-    const total =
-    harga *
-    jumlah;
+const total =
+harga *
+jumlah;
 
-    const orderNumber =
-    generateOrderNumber();
+const orderNumber =
+generateOrderNumber();
 
-    const dataOrder = {
+const dataOrder = {
 
-        orderNumber,
+    orderNumber,
 
-        nama,
+    nama,
 
-        hp,
+    hp,
 
-        alamat,
+    alamat,
 
-        layanan:
-        layananText,
+    layanan:
+    layananText,
 
-        jumlah,
+    jumlah,
 
-        total,
+    total,
 
-        status:
-        "Menunggu",
+    status:
+    "Menunggu",
 
-        createdAt:
-        new Date()
+    createdAt:
+    new Date()
 
-    };
+};
 
-    console.log(
-        "DATA ORDER:",
-        dataOrder
-    );
+const submitButton =
+document.querySelector(
+    ".submit-btn"
+);
 
-    const submitButton =
-    document.querySelector(
-        ".submit-btn"
-    );
+submitButton.disabled =
+true;
 
-    submitButton.disabled =
-    true;
+submitButton.textContent =
+"Mengirim...";
 
-    submitButton.textContent =
-    "Mengirim...";
-
-   try{
+try{
 
     await addDoc(
 
@@ -309,34 +401,39 @@ async function(e){
 
     );
 
+    await sendTelegramNotification(
+        dataOrder
+    );
+
     tampilkanPopup(
         orderNumber
     );
 
-        orderForm.reset();
+    orderForm.reset();
 
-        hitungTotal();
+    hitungTotal();
 
-    }
+}
 
-    catch(error){
+catch(error){
 
-        console.error(error);
+    console.error(error);
 
-        alert(
-            "Terjadi kesalahan."
-        );
+    alert(
+        "Terjadi kesalahan."
+    );
 
-    }
+}
 
-    finally{
+finally{
 
-        submitButton.disabled =
-        false;
+    submitButton.disabled =
+    false;
 
-        submitButton.textContent =
-        "Kirim Order";
+    submitButton.textContent =
+    "Kirim Order";
 
-    }
+}
+```
 
 });
