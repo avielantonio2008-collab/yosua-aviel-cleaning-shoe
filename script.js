@@ -148,3 +148,35 @@ function tampilkanPopup(orderNumber) {
     document.body.appendChild(popup);
     document.getElementById("closePopup").addEventListener("click", () => popup.remove());
 }
+
+/* ==========================
+   GALLERY SLIDER
+========================== */
+
+const track = document.querySelector(".gallery-track");
+const slides = document.querySelectorAll(".gallery-slide");
+const dots = document.querySelectorAll(".dot");
+
+let current = 0;
+
+function updateSlider(){
+
+    track.style.transform =
+        `translateX(-${current * 100}%)`;
+
+    dots.forEach(dot =>
+        dot.classList.remove("active"));
+
+    dots[current].classList.add("active");
+}
+
+setInterval(()=>{
+
+    current++;
+
+    if(current >= slides.length)
+        current = 0;
+
+    updateSlider();
+
+},4000);
